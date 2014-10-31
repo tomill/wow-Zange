@@ -1,0 +1,8 @@
+## Interface: 60300
+## Title: Zange
+## Notes: Translate confession to Japanese
+## Author: Tomill
+## SavedVariables: ZangeDB
+
+Zange.lua
+ZangeList.lua
