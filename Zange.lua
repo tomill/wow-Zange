@@ -1,5 +1,5 @@
 ZangeTransrator = CreateFrame("Frame")
-ZangeTransrator:RegisterEvent("VARIABLES_LOADED")
+ZangeTransrator:RegisterEvent("ADDON_LOADED")
 
 local function debug(...)
     print(...)
@@ -12,31 +12,38 @@ end
 local function print_help()
     info([[
 Zange addon commands:
-  /zange off   - off this addon.
-  /zange log   - translate confession (only in your log).
+  /zange off     - off this addon.
+  /zange log    - translate confession (only in your log).
   /zange say   - /say Japanese translated confession (do not spam)
-  /zange party - /party ^^^
-  /zange raid  - /raid ^^^
-  /zange guild - /guild ^^^
+  /zange party - /party
+  /zange raid   - /raid
+  /zange guild - /guild
 ]])
 end
 
 local function print_current_setting()
-    info('Zange addon: Current setting is "', ZangeDB["response"], '". (type /zange to help)')
+    if (not ZangeDB) then return end
+    info('Zange addon: Current setting is "' .. ZangeDB["response"] .. '". (type /zange to help)')
 end
 
--- function ZangeTransrator:VARIABLES_LOADED()
---     if (not ZangeDB) then
---         ZangeDB = {}
---     end
--- end
+local shown = false
+ZangeTransrator:SetScript("OnEvent", function(self, event)
+    if event == "ADDON_LOADED" then
+        if (not ZangeDB) then
+            ZangeDB = { ["response"] = "log" }
+        end
+        if not shown then
+            shown = true
+            info("Zange addon: loaded.")
+            print_current_setting()
+        end
+    end
+end)
 
 SLASH_ZANGE1 = "/zangetranslator"
 SLASH_ZANGE2 = "/zange"
 SlashCmdList["ZANGE"] = function (opt)
-    if (not ZangeDB) then
-        ZangeDB = { ["response"] = "log" }
-    end
+    if (not ZangeDB) then return end
     
     if not opt or opt == "" or opt == "help" then
         print_help()
@@ -56,9 +63,6 @@ end
 
 local _, class = UnitClass("player")
 if class == "PRIEST" then
-    info("Zange addon loaded!")
-    print_current_setting()
-
     ChatFrame_AddMessageEventFilter("CHAT_MSG_MONSTER_EMOTE", function(...)
         local self, _, msg, name, _, _, priest = ...
         
@@ -81,7 +85,7 @@ if class == "PRIEST" then
         local ja = ZangeTransrator.known_confessions[msg]
         if ja then
             local translated = string.format(ZangeTransrator.template.accepted, name, ja)
-            if ZangeDB.response == "on" then
+            if ZangeDB.response == "log" then
                 info(translated)
             elseif ZangeDB.response == "say" or
                    ZangeDB.response == "party" or
