@@ -23,7 +23,7 @@ end
 
 local function print_current_setting()
     if (not ZangeDB) then return end
-    info('Zange addon: Current setting is "' .. ZangeDB["response"] .. '". (type /zange to help)')
+    info('Zange addon: Current setting is "' .. ZangeDB["response"] .. '". (/zange to help)')
 end
 
 local shown = false
@@ -50,7 +50,7 @@ SlashCmdList["ZANGE"] = function (opt)
     else
         opt = string.lower(opt)
         if opt == "log" or opt == "on" then
-            ZangeDB["response"] = "on"
+            ZangeDB["response"] = "log"
         elseif opt == "say" or opt == "party" or opt == "raid" or opt == "guild" then
             ZangeDB["response"] = opt
         else
@@ -93,7 +93,7 @@ if class == "PRIEST" then
                    ZangeDB.response == "guild" then
                 SendChatMessage(translated, string.upper(ZangeDB.response))
             end
-            return true
+            -- return true
         else
             info(ZangeTransrator.template.unknown)
         end
