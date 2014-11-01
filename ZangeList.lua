@@ -17,7 +17,7 @@ ZangeTransrator.known_confessions = {
     [ [[I don't really have a clue who the Sin'dorei are.]] ] = "Sin'dorei…って一体なんなんでしょうか。",
     [ [[I don't really remember you in the mountains.]] ] = "山で会った気も…します…ね？",
     [ [[I don't treat all of my mounts equally.]] ] = "私は自分のマウントたち全部を平等には扱ってないです",
-    [ [[I don't understand how so many people know about the Brawler's Guild. The first rule...]] ] = nil,
+    [ [[I don't understand how so many people know about the Brawler's Guild.  The first rule...]] ] = nil,
     [ [[I don't use the strongest battle pets. Just the cutest ones.]] ] = "Battle Pet、強さとかどうでもいいんです、かわいいは正義なんです。",
     [ [[I feel bad for my ground mounts. I hardly ever use them anymore.]] ] = "飛べないマウントって何なんですかね。ほぼ使わないんですけど。",
     [ [[I fell off of Dalaran.]] ] = "私Dalaranから落ちちゃいました。",
@@ -79,6 +79,6 @@ ZangeTransrator.known_confessions = {
 
 ZangeTransrator.template = {
     ["accepted"] = "%sさんの懺悔「%s」しかと聞き届けました。",
-    ["iconfess"] = "%sは懺悔します「%s」",
+    ["iconfess"] = "懺悔します「%s」",
     ["unknown"] = "（やっべー、何言ってるかわからんぞ...）",
 }

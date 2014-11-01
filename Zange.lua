@@ -11,20 +11,17 @@ local function info(msg)
 end
 
 local function print_help()
-    info([[
-Zange addon commands:
-  /zange off     - off this addon.
-  /zange log    - translate confession (only in your log).
-  /zange say   - /say Japanese translated confession (do not spam or confess your spam)
-  /zange party - /party and same as above
-  /zange raid   - /raid and same as above
-  /zange guild - /guild and same as above
-]])
+    info("Zange addon help:")
+    info(" /zange off - off this addon.")
+    info(" /zange log - translate confession (only in your log).")
+    info(" /zange say - /say Japanese confession")
+    info(" /zange group - confession to group (raid or party)")
+    info(" /zange guild - to guild")
 end
 
 local function print_current_setting()
     if (not ZangeDB) then return end
-    info('Zange addon: Current setting is "' .. ZangeDB["response"] .. '". (/zange to help)')
+    info(' current setting is "' .. ZangeDB["response"] .. '". (/zange to help)')
 end
 
 ZangeTransrator:SetScript("OnEvent", function(self, event)
@@ -51,7 +48,7 @@ SlashCmdList["ZANGE"] = function (opt)
         opt = string.lower(opt)
         if opt == "log" or opt == "on" then
             ZangeDB["response"] = "log"
-        elseif opt == "say" or opt == "party" or opt == "raid" or opt == "guild" then
+        elseif opt == "say" or opt == "group" or opt == "guild" then
             ZangeDB["response"] = opt
         else
             ZangeDB["response"] = "off"
@@ -88,7 +85,7 @@ if class == "PRIEST" then
             if name ~= myname then
                 translated = string.format(ZangeTransrator.template.accepted, name, ja)
             else
-                translated = string.format(ZangeTransrator.template.iconfess, name, ja)
+                translated = string.format(ZangeTransrator.template.iconfess, ja)
             end
             if not translated then
                 return
@@ -96,11 +93,20 @@ if class == "PRIEST" then
             
             if ZangeDB.response == "log" then
                 info(translated)
-            elseif ZangeDB.response == "say" or
-                   ZangeDB.response == "party" or
-                   ZangeDB.response == "raid" or
-                   ZangeDB.response == "guild" then
-                SendChatMessage(translated, string.upper(ZangeDB.response))
+            elseif ZangeDB.response == "say" then
+                SendChatMessage(translated, "SAY")
+            elseif (ZangeDB.response == "guild" and IsInGuild()) then
+                SendChatMessage(translated, "GUILD")
+            elseif ZangeDB.response == "group" then
+                if IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
+                    SendChatMessage(translated, "INSTANCE_CHAT")
+                elseif IsInRaid(LE_PARTY_CATEGORY_HOME) then
+                    SendChatMessage(translated, "RAID")
+                elseif IsInGroup() then
+                    SendChatMessage(translated, "PARTY")
+                else
+                    info(translated) -- "group" but not in party etc.
+                end
             end
             return true
         elseif name ~= myname then

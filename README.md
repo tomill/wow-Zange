@@ -11,11 +11,12 @@ type /zange to help/configure addon setting. available options:
     /zange off   - off this addon.
     /zange log   - translate confession (only in your log).
     /zange say   - /say Japanese translated confession (do not spam or confess your spam)
-    /zange party - /party and same as above
+    /zange group - confession to group (raid or party)
+    /zange guild - to guild
 
 Confession: some translations are something funny or incorrect or missing...
 
-Thank you Hifa-san to help :)
+Thank you Hifa-san/chihirock to help :)
 
 You can message/help me (tomi) anytime:
 
