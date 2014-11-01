@@ -10,7 +10,7 @@ type /zange to help/configure addon setting. available options:
     /zange help  - to see help
     /zange off   - off this addon.
     /zange log   - translate confession (only in your log).
-    /zange say   - /say Japanese translated confession (please do not spam or confess your spam)
+    /zange say   - /say Japanese translated confession (do not spam or confess your spam)
     /zange party - /party and same as above
 
 Confession: some translations are something funny or incorrect or missing...
