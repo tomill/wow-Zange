@@ -1,5 +1,5 @@
-## Interface: 60000
-## Version: 1.0.0
+## Interface: 60100
+## Version: 1.1.0
 ## Title: Zange
 ## Notes: Translate confession to Japanese
 ## Author: Tomill
